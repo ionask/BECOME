@@ -17,9 +17,9 @@ export default function Home() {
       <aside className={styles.sidebar}>
         <div className={styles.brand}>BECOME</div>
         <div className={styles.shopStatus}><span /> Shop connected</div>
-        <nav>
+        <nav className={styles.navigation}>
           {['Overview', 'Products', 'Orders', 'Sales', 'Settings'].map((item) => (
-            <button key={item} onClick={() => setActive(item)} className={active === item ? styles.active : ''}>
+            <button key={item} onClick={() => setActive(item)} className={active === item ? `${styles.navButton} ${styles.active}` : styles.navButton}>
               <span className={styles.dot} />{item}
             </button>
           ))}
@@ -32,14 +32,14 @@ export default function Home() {
 
       <section className={styles.content}>
         <header className={styles.header}>
-          <div><p className={styles.eyebrow}>WORKSPACE / {active.toUpperCase()}</p><h1>{active}</h1></div>
+          <div><p className={styles.eyebrow}>WORKSPACE / {active.toUpperCase()}</p><h1 className={styles.title}>{active}</h1></div>
           <button className={styles.primary}>+ Create product</button>
         </header>
 
         <div className={styles.hero}>
           <div>
             <p className={styles.kicker}>Good afternoon</p>
-            <h2>Your shop is ready to grow.</h2>
+            <h2 className={styles.heroTitle}>Your shop is ready to grow.</h2>
             <p className={styles.muted}>Everything you need to create, organize and publish your products in one place.</p>
           </div>
           <div className={styles.heroMark}>B</div>
@@ -52,7 +52,7 @@ export default function Home() {
         </div>
 
         <section className={styles.section}>
-          <div className={styles.sectionHead}><div><p className={styles.eyebrow}>CATALOG</p><h3>Recent products</h3></div><button className={styles.ghost}>View all</button></div>
+          <div className={styles.sectionHead}><div><p className={styles.eyebrow}>CATALOG</p><h3 className={styles.sectionTitle}>Recent products</h3></div><button className={styles.ghost}>View all</button></div>
           <div className={styles.table}>
             <div className={styles.tableHead}><span>PRODUCT</span><span>TYPE</span><span>STATUS</span><span>PRICE</span></div>
             {products.map((product) => <div className={styles.row} key={product.name}><strong>{product.name}</strong><span>{product.type}</span><span className={product.status === 'Published' ? styles.published : styles.draft}>{product.status}</span><span>{product.price}</span></div>)}

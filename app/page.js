@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
 const products = [
@@ -11,12 +11,22 @@ const products = [
 
 export default function Home() {
   const [active, setActive] = useState('Overview')
+  const [etsyConnected, setEtsyConnected] = useState(false)
+
+  useEffect(() => {
+    fetch('/api/etsy/status')
+      .then((response) => response.json())
+      .then((data) => setEtsyConnected(Boolean(data.connected)))
+      .catch(() => setEtsyConnected(false))
+  }, [])
 
   return (
     <main className={styles.shell}>
       <aside className={styles.sidebar}>
         <div className={styles.brand}>BECOME</div>
-        <div className={styles.shopStatus}><span /> Shop connected</div>
+        <a href={etsyConnected ? '/api/etsy/status' : '/api/etsy/connect'} className={styles.shopStatus}>
+          <span /> {etsyConnected ? 'Shop connected' : 'Connect Etsy'}
+        </a>
         <nav className={styles.navigation}>
           {['Overview', 'Products', 'Orders', 'Sales', 'Settings'].map((item) => (
             <button key={item} onClick={() => setActive(item)} className={active === item ? `${styles.navButton} ${styles.active}` : styles.navButton}>
